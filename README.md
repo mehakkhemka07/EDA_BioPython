@@ -10,14 +10,6 @@
 breast-cancer-eda/
 ├── Breast_Cancer_Diagnosis.csv   # Dataset (569 records, 32 features)
 ├── EDA_Breast_Cancer.py          # Full EDA script (all 5 steps)
-├── plots/
-│   ├── plot1_diagnosis_dist.png  # Countplot – class distribution
-│   ├── plot2_radius_hist.png     # Histogram – radius mean by diagnosis
-│   ├── plot3_boxplots.png        # Boxplots – 6 key mean features
-│   ├── plot4_scatter.png         # Scatter – radius vs texture mean
-│   ├── plot5_violin.png          # Violin – area mean by diagnosis
-│   ├── plot6_heatmap.png         # Correlation heatmap (mean features)
-│   └── plot7_pairplot.png        # Pairplot – 4 morphological features
 └── README.md
 ```
 
@@ -50,9 +42,6 @@ pip install numpy pandas matplotlib seaborn
 ```bash
 # Clone / download the repo, then:
 python EDA_Breast_Cancer.py
-```
-
-All 7 plots are saved as `.png` files in the working directory.
 
 ---
 
