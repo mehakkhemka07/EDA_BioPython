@@ -1,6 +1,6 @@
 # Breast Cancer Diagnosis – Exploratory Data Analysis
 
-> A thorough EDA using **NumPy · Pandas · Matplotlib · Seaborn** to uncover patterns in tumour morphology features that distinguish malignant from benign breast masses.
+Uncovering patterns in tumour morphology features that distinguish malignant from benign breast masses using the UCI Breast Cancer Wisconsin dataset.
 
 ---
 
@@ -9,76 +9,74 @@
 ```
 breast-cancer-eda/
 ├── Breast_Cancer_Diagnosis.csv   # Dataset (569 records, 32 features)
-├── EDA_Breast_Cancer.py          # Full EDA script (all 5 steps)
+├── EDA_Breast_Cancer.py          # Full EDA script
 └── README.md
 ```
 
 ---
 
-## Dataset Overview
+## Dataset
 
-| Property | Value |
+| Property | Details |
 |---|---|
-| Source | UCI Machine Learning Repository (Breast Cancer Wisconsin) |
-| Records | 569 |
-| Features | 30 numerical + 1 ID + 1 target (`Diagnosis`) |
-| Target classes | **B** – Benign (357, 63%) · **M** – Malignant (212, 37%) |
-| Missing values | None |
+| **Source** | UCI Machine Learning Repository – Breast Cancer Wisconsin |
+| **Records** | 569 |
+| **Features** | 30 numerical + 1 ID + 1 target (Diagnosis) |
+| **Target classes** | B – Benign (357, 63%) / M – Malignant (212, 37%) |
+| **Missing values** | None |
 
-Features are computed from digitised images of fine needle aspirate (FNA) biopsies. For each cell nucleus, **mean**, **standard error**, and **worst** values of 10 measurements (radius, texture, perimeter, area, smoothness, compactness, concavity, concave points, symmetry, fractal dimension) are recorded.
+Features are computed from digitised fine needle aspirate (FNA) biopsy images. Mean, standard error, and worst values of 10 measurements (radius, texture, perimeter, area, smoothness, compactness, concavity, concave points, symmetry, fractal dimension) are recorded per nucleus.
 
 ---
 
-## Setup & Usage
-
-### Requirements
+## Setup
 
 ```bash
 pip install numpy pandas matplotlib seaborn
 ```
 
-### Run
-
 ```bash
-# Clone / download the repo, then:
 python EDA_Breast_Cancer.py
+```
 
 ---
 
-## EDA Steps
+## EDA Workflow
 
-### Step 1 – Data Loading & Cleaning
-- Loaded with `pd.read_csv()`; inspected shape, dtypes, and `isnull()` counts.
-- Renamed `diagnosis` → `Diagnosis`; cast to `category` dtype.
-- **No missing values** found; no imputation needed.
+| Step | Description |
+|---|---|
+| 01 | Data loading and cleaning — inspected shape, dtypes, null counts; no imputation needed |
+| 02 | Descriptive statistics — mean, median, mode, SD; identified high-variance and skewed features |
+| 03 | Visualisation — countplot, histograms, boxplots, scatter, violin, heatmap, pairplot |
+| 04 | Insight extraction — class separation, multicollinearity, and discriminative features identified |
 
-### Step 2 – Descriptive Statistics
-- Separated numerical (30 features) vs categorical (`Diagnosis`) columns.
-- Computed `.describe()`, mean, median, mode, and standard deviation.
-- Identified that size/shape features (`area`, `radius`, `perimeter`) have high variance and right-skewed distributions.
+---
 
-### Step 3 – Data Visualisation
+## Visualisations
 
-| Plot | Type | Key Takeaway |
-|---|---|---|
-| Diagnosis Distribution | Countplot | Benign majority (63 vs 37%) |
-| Radius Mean | Histogram | Clear bimodal split between classes |
-| 6 Mean Features | Boxplot | Malignant tumours larger across all features |
-| Radius vs Texture | Scatter | Partial but visible linear class separation |
-| Area Mean | Violin | Malignant distribution has heavier upper tail |
-| Mean Features | Heatmap | radius/perimeter/area near-perfectly correlated |
-| 4 Features | Pairplot | Strong inter-feature clustering by class |
-
-### Step 4 – Insights & Conclusion *(see below)*
+| Plot | Key Takeaway |
+|---|---|
+| Diagnosis distribution (countplot) | Benign majority — 63 vs 37% |
+| Radius mean (histogram) | Clear bimodal split between classes |
+| 6 mean features (boxplot) | Malignant tumours larger across all features |
+| Radius vs texture (scatter) | Partial but visible linear class separation |
+| Area mean (violin) | Malignant distribution has heavier upper tail |
+| Mean features (heatmap) | radius, perimeter, and area near-perfectly correlated |
+| 4 features (pairplot) | Strong inter-feature clustering by class |
 
 ---
 
 ## Key Insights
 
-1. **Class imbalance** is mild (63/37 split) but worth addressing with stratified sampling or SMOTE in any downstream model.
-2. **Size features are the best separators** – malignant tumours consistently show larger radius, perimeter, and area.
-3. **Extreme multicollinearity** – `radius_mean`, `perimeter_mean`, and `area_mean` correlate at *r > 0.99*. Using all three in a linear model will cause instability.
-4. **Concavity and concave points are highly discriminative** – these shape irregularity features show the widest gap between classes.
-5. **No data quality issues** – no nulls, no duplicates, numeric dtypes are already correct.
-6. **Outliers exist** in `area_mean` and `perimeter_mean` among malignant samples, likely representing aggressive tumours.
+1. **Size features are the strongest separators** — malignant tumours consistently show larger radius, perimeter, and area across all samples.
+2. **Extreme multicollinearity** — radius_mean, perimeter_mean, and area_mean correlate at r > 0.99; using all three in a linear model will cause instability.
+3. **Concavity and concave points are highly discriminative** — shape irregularity features show the widest gap between benign and malignant classes.
+4. **Mild class imbalance** (63/37) — worth addressing with stratified sampling or SMOTE in any downstream classification model.
+5. **Outliers present** in area_mean and perimeter_mean among malignant samples, likely representing aggressive tumour subtypes.
+6. **No data quality issues** — no nulls, no duplicates, dtypes are correct throughout.
 
+---
+
+## Tools
+
+Python, NumPy, Pandas, Matplotlib, Seaborn
